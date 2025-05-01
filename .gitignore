@@ -1,0 +1,5 @@
+# virtual environment files
+fashion-mnist-classifier-venv
+
+# OS generated files
+.DS_Store
