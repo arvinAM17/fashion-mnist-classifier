@@ -32,7 +32,6 @@ filelock==3.18.0
 fonttools==4.57.0
 fqdn==1.5.1
 fsspec==2025.3.2
-gradio==5.28.0
 gradio_client==1.10.0
 groovy==0.1.2
 grpcio==1.71.0
@@ -136,7 +135,6 @@ tinycss2==1.4.0
 tomlkit==0.13.2
 torch==2.7.0
 torch-tb-profiler==0.4.3
-torchaudio==2.7.0
 torchvision==0.22.0
 tornado==6.4.2
 tqdm==4.67.1

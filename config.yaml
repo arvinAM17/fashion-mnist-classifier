@@ -1,0 +1,17 @@
+# Data settings
+batch_size: 64
+num_workers: 0
+
+# Training settings
+epochs: 10
+loss_func: cross_entropy 
+optimizer: adam # or sgd
+learning_rate: 0.001
+optim_momentum: 0.9
+device: mps  # 'cuda' or 'mps' or 'cpu'
+
+# Model settings
+model_name: fc # or 'fc'
+hidden_dim: 128
+output_dim: 10
+

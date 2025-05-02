@@ -35,9 +35,9 @@ def train_one_epoch(
         
         if i % 100 == 0:
             train_acc = accuracy = 100 * correct / total
-
-            writer.add_scalar("Loss/training", loss.item())
-            writer.add_scalar("Accuracy/training", train_acc)
+            if writer:
+                writer.add_scalar("Loss/training", loss.item())
+                writer.add_scalar("Accuracy/training", train_acc)
         
 
     accuracy = 100 * correct / total

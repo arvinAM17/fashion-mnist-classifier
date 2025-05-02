@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+*.pth
+data/
+models/
+fashion-mnist-classifier-venv/
