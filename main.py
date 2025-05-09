@@ -41,6 +41,7 @@ loss_func = loss_map.get(config["loss_func"], nn.CrossEntropyLoss())
 optimizer_map = {
     "sgd": lambda: optim.SGD(model.parameters(), lr=config["learning_rate"], momentum=config["optim_momentum"]),
     "adam": lambda: optim.Adam(model.parameters(), lr=config["learning_rate"]),
+    "adamW": lambda: optim.AdamW(model.parameters(), lr=config["learning_rate"]),
 }
 optimizer = optimizer_map.get(config["optimizer"], optimizer_map["adam"])()
 

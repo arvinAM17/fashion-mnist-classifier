@@ -9,6 +9,7 @@ def train_one_epoch(
     loss_func: nn.Module,
     optimizer: torch.optim.Optimizer,
     device: str, 
+    epoch: int = 0,
     writer: SummaryWriter = None
 ):
     model.train()
@@ -36,8 +37,8 @@ def train_one_epoch(
         if i % 100 == 0:
             train_acc = accuracy = 100 * correct / total
             if writer:
-                writer.add_scalar("Loss/training", loss.item())
-                writer.add_scalar("Accuracy/training", train_acc)
+                writer.add_scalar("Loss/training", loss.item(), (i + epoch * len(data_loader)) // 100)
+                writer.add_scalar("Accuracy/training", train_acc, (i + epoch * len(data_loader)) // 100)
         
 
     accuracy = 100 * correct / total
@@ -73,6 +74,7 @@ def evaluate(
 def train_model(
     model: nn.Module,
     train_loader: DataLoader,
+    validation_loader: DataLoader,
     loss_func: nn.Module,
     optimizer: torch.optim.Optimizer,
     device: str,
@@ -81,10 +83,14 @@ def train_model(
 ):
     for epoch in range(epochs):
         print(f"Epoch {epoch + 1}/{epochs}")
-        train_loss, train_acc = train_one_epoch(model, train_loader, loss_func, optimizer, device, writer)
+        train_loss, train_acc = train_one_epoch(model, train_loader, loss_func, optimizer, device, epoch, writer)
+        val_loss, val_acc = evaluate(model, validation_loader, loss_func, device)
 
         if writer:
             writer.add_scalar("Loss/train", train_loss, epoch)
             writer.add_scalar("Accuracy/train", train_acc, epoch)
+            writer.add_scalar("Loss/validation", val_loss, epoch)
+            writer.add_scalar("Accuracy/validation", val_acc, epoch)
 
         print(f"Train Loss: {train_loss:.4f}, Train Accuracy: {train_acc:.2f}%")
+        print(f"Validation Loss: {val_loss:.4f}, Validation Accuracy: {val_acc:.2f}%")
