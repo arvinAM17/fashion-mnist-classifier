@@ -28,20 +28,23 @@ The layers of this model are created using 4 blocks.
 
 3 of the blocks are based on the same structure, which is as follows:
 - nn.LazyConv2d(): a convolutional layer with custom padding and number of output channels, with a fixed stride of 1
+- nn.LazyBatchNorm2d(): a batch normalization layer
 - nn.ReLU(): as an activation function after the convolutional layer
+- nn.Dropout(): a dropout layer with a probability of 0.1
 - nn.MaxPool2d(): to pool the output of the convolutional layer 
 
 The last block of the model is a 2 layer fully connected block, which is the same structure as the previous model, with the difference that the hidden layer has a dimension of 128 instead of the 20 in the previous model.
 
 The layers of this model are in this order:
 - a conv2d block with padding of 3 and output channels of 64 that turns the 1 * 28 * 28 shaped image into 64 * 16 * 16
-- a conv2d block with padding of 1 and output channels of 64 that turns the 64 * 16 * 16 shaped image into 64 * 8 * 8
-- a conv2d block with padding of 1 and output channels of 128 that turns the 64 * 16 * 16 shaped image into 128 * 4 * 4
-- a final fully connected block that first flattens the image from 128 * 4 * 4 to a vector of size 2,048, then 128, and then 10 as the output class scores
+- a conv2d block with padding of 1 and output channels of 128 and no pooling that turns the 64 * 16 * 16 shaped image into 128 * 16 * 16
+- a conv2d block with padding of 1 and output channels of 128 that turns the 128 * 16 * 16 shaped image into 128 * 8 * 8
+- a conv2d block with padding of 1 and output channels of 128 that turns the 128 * 8 * 8 shaped image into 128 * 4 * 4
+- a final fully connected block that first flattens the image from 128 * 4 * 4 to a vector of size 2,048, then 512, with dropout of 0.3, and then 10 as the output class scores
 
 This model also uses a crossEntropy loss function, but instead uses an Adam optimizer with a learning rate of 0.001.
 
-The performance of this model is 98.69% accuracy for the training data and 91.99% accuracy for the test data.
+The performance of this model is 98.69% accuracy for the training data and 93.36% accuracy for the test data.
 
 ### 3. ResNet50
 TODO
